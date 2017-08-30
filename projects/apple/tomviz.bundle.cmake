@@ -53,6 +53,12 @@ install(CODE "
                --search \"${Qt5_DIR}/../../../lib\"
                --search \"${Qt5_DIR}/../../../plugins\"
                --plugins \"${Qt5_DIR}/../../../plugins\")
+
+    # We don't need to distribute debug libraries for Qt, we want minimal Qt frameworks that will
+    # work for the packaged version
+    execute_process(
+      COMMAND /bin/sh ${CMAKE_CURRENT_LIST_DIR}/cleanup_qt_frameworks.sh
+      WORKING_DIRECTORY \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/tomviz.app\")
    "
    COMPONENT superbuild)
 
